@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
 import { Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/providers/theme-provider"
+import { ThemeProvider } from "@/providers/theme-provider";
+import { ClerkProvider } from '@clerk/nextjs';
+import { ChatProvider } from '@/contexts/chat-context';
 import { Toaster } from "sonner";
-import Navbar from "@/components/navbar";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
 })
+
 const spaceMono = Space_Mono({
   variable: "--font-space-mono",
   weight: ["400", "700"],
@@ -22,31 +23,30 @@ export const viewport = {
   userScalable: 1,
 };
 
-export const metadata: Metadata = {
-  title: "ManimGPT",
-  description: "Neat LLM wrapper to help understand math concepts",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${spaceGrotesk.variable} ${spaceMono.variable} antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange>
-          <Navbar/>
-          {children}
-          <Toaster />
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${spaceGrotesk.variable} ${spaceMono.variable} antialiased`}
+        >
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ChatProvider>
+              {children}
+            </ChatProvider>
+            <Toaster />
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
