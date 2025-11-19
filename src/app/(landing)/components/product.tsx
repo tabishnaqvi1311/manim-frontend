@@ -7,16 +7,17 @@ import {
   MicIcon,
   MusicIcon,
 } from "./ui/product-card";
+import { getVideoUrl } from "@/lib/videos";
 
 export default function Product() {
   const [selectedTopic, setSelectedTopic] = React.useState<string>("CONCEPTS");
 
   const videos: Record<string, string> = {
-    CONCEPTS: "/videos/concepts.mp4",
-    VISUALS: "/videos/visuals.mp4",
-    DOMAINS: "/videos/domains.mp4",
-    "APPLIED SCIENCES": "/videos/applied.mp4",
-    "STATE OF ART": "/videos/state.mp4",
+    CONCEPTS: getVideoUrl('concepts'),
+    VISUALS: getVideoUrl('visuals'),
+    DOMAINS: getVideoUrl('domains'),
+    "APPLIED SCIENCES": getVideoUrl('applied'),
+    "STATE OF ART": getVideoUrl('state'),
   };
 
   const isSelected = (topic: string) =>
@@ -86,6 +87,7 @@ export default function Product() {
               className="w-full h-full object-fit scale-100 rounded-2xl shadow-xl bg-black"
               controls
               autoPlay
+              crossOrigin="anonymous"
             />
           </div>
         </div>

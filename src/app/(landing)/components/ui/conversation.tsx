@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Send, Mic, Play } from "lucide-react";
 import Image from "next/image";
+import { getVideoUrl } from "@/lib/videos";
 
 const VideoBubble: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -24,11 +25,12 @@ const VideoBubble: React.FC = () => {
     <div className="p-1 rounded-xl max-w-xs w-full shadow-lg bg-black relative overflow-hidden animate-bubble-appear cursor-pointer">
       <video
         ref={videoRef}
-        src="/videos/sample2.mp4"
+        src={getVideoUrl("sample2")}
         loop
         muted
         style={{ backgroundImage: "linear-gradient(135deg, #4c4c4c, #2c2c2c)" }}
         className="w-full h-auto object-cover rounded-lg aspect-video"
+        crossOrigin="anonymous"
       />
       <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
         <button
@@ -44,7 +46,7 @@ const VideoBubble: React.FC = () => {
         </button>
       </div>
       <p className="text-white text-xs mt-2 p-1">
-        Here’s a quick sample explaining neural networks.
+        {"Here's a quick sample explaining neural networks."}
       </p>
     </div>
   );
@@ -68,7 +70,7 @@ const messages: ChatMessage[] = [
     id: 2,
     sender: "bot",
     content:
-      "Sure! Let’s get started. I’ll prepare a quick visual explanation for you.",
+      "Sure! Let's get started. I'll prepare a quick visual explanation for you.",
     delay: 2200,
   },
   {
@@ -90,9 +92,9 @@ const Conversation: React.FC = () => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const timers = useRef<number[]>([]);
 
-  const messageToType = messages[0].content as string;
-
+  
   useEffect(() => {
+    const messageToType = messages[0].content as string;
     timers.current.forEach(clearTimeout);
     timers.current = [];
 
