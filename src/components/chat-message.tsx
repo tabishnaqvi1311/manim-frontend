@@ -44,7 +44,7 @@ export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
               <p className="text-sm whitespace-pre-wrap">{message.content}</p>
             ) : (
               <p className="text-sm whitespace-pre-wrap text-black">
-                Here is your Vidoe along with the Explanation:
+                Here is your Video along with the Explanation:
               </p>
             )}
 

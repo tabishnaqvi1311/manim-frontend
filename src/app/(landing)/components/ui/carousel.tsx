@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Card } from "./card";
 import { Button } from "@/components/ui/button";
+import { getVideoUrl } from "@/lib/videos";
 
 const Carousel = () => {
     const [activeIndex, setActiveIndex] = useState<number>(1);
@@ -10,17 +11,17 @@ const Carousel = () => {
         {
             id: 0,
             gradient: "from-[#4a9ac7] to-[#6b7fa8]",
-            videoSrc: "/videos/sample1.mp4",
+            videoSrc: getVideoUrl('sample1'),
         },
         {
             id: 1,
             gradient: "from-[#805575] to-[#c76868]",
-            videoSrc: "/videos/sample2.mp4",
+            videoSrc: getVideoUrl('sample2'),
         },
         {
             id: 2,
             gradient: "from-[#2d5a3d] to-[#4a7556]",
-            videoSrc: "/videos/sample3.mp4",
+            videoSrc: getVideoUrl('sample3'),
         },
     ];
 
@@ -116,6 +117,7 @@ const Carousel = () => {
                                     loop
                                     muted={false}
                                     className="w-full h-full object-fill absolute inset-0 rounded-2xl"
+                                    crossOrigin="anonymous"
                                 />
 
                                 <Button
